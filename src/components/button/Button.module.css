@@ -1,0 +1,13 @@
+.button {
+    margin: 10px;
+    width: 120px;
+    background-color: #47a5af;
+    border: none;
+    border-radius: 10px;
+    font-size: 30px;
+    font-weight: bold;
+}
+
+.disabled {
+    opacity: 0.5;
+}
