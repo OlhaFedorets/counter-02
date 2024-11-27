@@ -1,0 +1,18 @@
+.count {
+    height: 150px;
+    width: 275px;
+    font-size: 100px;
+    font-weight: bold;
+    background-color: #47a5af;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.frame {
+    display: flex;
+    justify-content: space-between;
+    border: 3px solid #47a5af;
+    border-radius: 10px;
+    width: 275px;
+    height: 60px;
+}
