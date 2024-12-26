@@ -2,7 +2,6 @@ import React, {useState} from 'react';
 import {Button} from "../button/Button";
 import s from "../button/Button.module.css";
 import style from "./Counter.module.css"
-import {Settings} from "../settings/Settings";
 
 export const Counter = () => {
     const [count, setCount] = useState<number>(0)
@@ -25,35 +24,18 @@ export const Counter = () => {
     ${count === 0 ? s.disabled : ''}
     `
 
-    const classNameForSet = `
-     ${s.button}
-     `
+    return (
+        <div className={style.block}>
+            <div className={style.count} style={{color: count === 5 ? 'darkred' : ''}}>{count}</div>
+            <div className={style.frame}>
+                <Button title={'inc'}
+                        onClick={increaseFunction}
+                        className={classNameForInc}/>
 
-
-    return (<>
-            <div className={style.block}>
-                <div className={style.settings}>
-                    <Settings/>
-                </div>
-                <div className={style.frame}>
-                    <Button title={'set'}
-                            onClick={() => {
-                            }}
-                            className={classNameForSet}/>
-                </div>
+                <Button title={'reset'}
+                        onClick={resetFunction}
+                        className={classNameForReset}/>
             </div>
-            <div className={style.block}>
-                <div className={style.count} style={{color: count === 5 ? 'darkred' : ''}}>{count}</div>
-                <div className={style.frame}>
-                    <Button title={'inc'}
-                            onClick={increaseFunction}
-                            className={classNameForInc}/>
-
-                    <Button title={'reset'}
-                            onClick={resetFunction}
-                            className={classNameForReset}/>
-                </div>
-            </div>
-        </>
+        </div>
     );
 };
