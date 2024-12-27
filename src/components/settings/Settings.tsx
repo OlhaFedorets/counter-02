@@ -3,11 +3,23 @@ import style from "../counter/Counter.module.css";
 import {Button} from "../button/Button";
 import s from "../button/Button.module.css";
 
-type SettingsTypeProps = {}
+type SettingsTypeProps = {
+    // presetMaxValue: number
+    // presetStartValue: number
+    changePresetMaxValue: (maxValue: number) => void
+    changePresetStartValue: (startValue: number) => void
+    // setPresetMaxValue: (maxValue: string) => void;
+    // setPresetStartValue: (startValue: string) => void;
+}
 
-export const Settings = ({}: SettingsTypeProps) => {
-    const [maxValue, setMaxValue] = useState('0');
-    const [startValue, setStartValue] = useState('0');
+export const Settings = ({
+                             // presetMaxValue,
+                             // presetStartValue,
+                             changePresetMaxValue,
+                             changePresetStartValue
+                         }: SettingsTypeProps) => {
+    const [maxValue, setMaxValue] = useState('');
+    const [startValue, setStartValue] = useState('');
 
     const classNameForSet = `
      ${s.button}
@@ -18,7 +30,7 @@ export const Settings = ({}: SettingsTypeProps) => {
         if (newMaxValue) {
             setMaxValue(JSON.parse(newMaxValue))
         }
- let newStartValue = localStorage.getItem('startValue')
+        let newStartValue = localStorage.getItem('startValue')
         if (newStartValue) {
             setStartValue(JSON.parse(newStartValue))
         }
@@ -35,11 +47,13 @@ export const Settings = ({}: SettingsTypeProps) => {
     }
 
 
-
-
     function onClickHandler() {
         localStorage.setItem('maxValue', JSON.stringify(maxValue))
         localStorage.setItem('startValue', JSON.stringify(startValue))
+        // setPresetMaxValue(maxValue)
+        // setPresetStartValue(startValue)
+        changePresetMaxValue(Number(maxValue))
+        changePresetStartValue(Number(startValue))
     }
 
 
