@@ -13,6 +13,23 @@ function App() {
 
     const [count, setCount] = useState<number>(startValue)
 
+    useEffect(() => {
+        let newCount = localStorage.getItem('count')
+        if (newCount) {
+            setCount(JSON.parse(newCount))
+        }
+
+        let newMaxValue = localStorage.getItem('maxValue')
+        if (newMaxValue) {
+            setMaxValue(JSON.parse(newMaxValue))
+        }
+        let newStartValue = localStorage.getItem('startValue')
+        if (newStartValue) {
+            setStartValue(JSON.parse(newStartValue))
+        }
+
+    }, [])
+
     function onChangeMaxValueHandler(event: ChangeEvent<HTMLInputElement>) {
         setMaxValue(Number(event.currentTarget.value))
     }
@@ -23,6 +40,9 @@ function App() {
 
     function setNewValue() {
         setCount(startValue)
+        localStorage.setItem('count', JSON.stringify(startValue))
+        localStorage.setItem('maxValue', JSON.stringify(maxValue))
+        localStorage.setItem('startValue', JSON.stringify(startValue))
     }
 
 
