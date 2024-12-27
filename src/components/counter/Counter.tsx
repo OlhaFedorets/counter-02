@@ -1,32 +1,52 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Button} from "../button/Button";
 import s from "../button/Button.module.css";
 import style from "./Counter.module.css"
 
-export const Counter = () => {
-    const [count, setCount] = useState<number>(0)
+type CounterPropsType = {
+    presetMaxValue: number
+    presetStartValue: number
+}
 
+export const Counter = ({presetMaxValue, presetStartValue}: CounterPropsType) => {
+
+    useEffect(() => {
+        let newStartValue = localStorage.getItem('startValue')
+        if (newStartValue) {
+            setCount(JSON.parse(newStartValue))
+        }
+
+    }, [])
+
+    useEffect(() => {
+        localStorage.setItem('counterValue', JSON.stringify(presetStartValue))
+    })
+
+    console.log(presetStartValue)
+
+    let [count, setCount] = useState<number>(0)
+    console.log(count)
     function increaseFunction() {
-        count < 5 && setCount(count + 1)
+        count < presetMaxValue && setCount(count + 1)
     }
 
     function resetFunction() {
-        setCount(0)
+        setCount(presetStartValue)
     }
 
     const classNameForInc = `
     ${s.button}
-    ${count === 5 ? s.disabled : ''}
+    ${count === presetMaxValue ? s.disabled : ''}
     `
 
     const classNameForReset = `
     ${s.button}
-    ${count === 0 ? s.disabled : ''}
+    ${count === presetStartValue ? s.disabled : ''}
     `
 
     return (
         <div className={style.block}>
-            <div className={style.count} style={{color: count === 5 ? 'darkred' : ''}}>{count}</div>
+            <div className={style.count} style={{color: count === presetMaxValue ? 'darkred' : ''}}>{count}</div>
             <div className={style.frame}>
                 <Button title={'inc'}
                         onClick={increaseFunction}
